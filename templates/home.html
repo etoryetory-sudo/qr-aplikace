@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <title>QR aplikace</title>
+</head>
+<body>
+  <h1>QR aplikace</h1>
+  <p><a href="/upload">Nahrát nový soubor</a></p>
+
+  {% if items %}
+    <ul>
+      {% for item in items %}
+        <li>
+          {{ item["original_name"] }} —
+          <a href="/q/{{ item['token'] }}">otevřít</a> —
+          <a href="/qr-image/{{ item['token'] }}.png">QR obrázek</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Zatím nejsou žádné soubory.</p>
+  {% endif %}
+</body>
+</html>
