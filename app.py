@@ -73,7 +73,7 @@ def upload():
         conn.commit()
         conn.close()
 
-        public_url = f"http://10.0.0.117:5000/q/{token}"
+        public_url = f"https://qr-aplikace.onrender.com/q/{token}"
 
         qr_path = QR_DIR / f"{token}.png"
         img = qrcode.make(public_url)
