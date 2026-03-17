@@ -2,10 +2,16 @@ import sqlite3
 import secrets
 from pathlib import Path
 from flask import Flask, request, render_template, send_file, abort, redirect, session
+import sqlite3
+import secrets
+from pathlib import Path
 import qrcode
+
 ADMIN_PASSWORD = "Dominika1"
+
 app = Flask(__name__)
 app.secret_key = "Dominika1-super-secret"
+
 BASE_DIR = Path(__file__).resolve().parent
 DB_PATH = BASE_DIR / "app.db"
 UPLOADS_DIR = BASE_DIR / "uploads"
