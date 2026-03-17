@@ -1,10 +1,11 @@
 import sqlite3
 import secrets
 from pathlib import Path
-from flask import Flask, request, render_template, send_file, abort
+from flask import Flask, request, render_template, send_file, abort, redirect, session
 import qrcode
-
+ADMIN_PASSWORD = "Dominika1"
 app = Flask(__name__)
+app.secret_key = "tajne-admin-heslo"
 BASE_DIR = Path(__file__).resolve().parent
 DB_PATH = BASE_DIR / "app.db"
 UPLOADS_DIR = BASE_DIR / "uploads"
@@ -43,9 +44,14 @@ def init_db():
 
 @app.route("/")
 def home():
+
+    if not session.get("admin"):
+        return redirect("/login")
+
     conn = get_db()
     items = conn.execute("SELECT * FROM files ORDER BY id DESC").fetchall()
     conn.close()
+
     return render_template("home.html", items=items)
 
 
@@ -135,7 +141,30 @@ def qr_image(filename):
     if not path.exists():
         abort(404)
     return send_file(path)
+@app.route("/login", methods=["GET","POST"])
+def login():
 
+    if request.method == "POST":
+        password = request.form.get("password")
+
+        if password == ADMIN_PASSWORD:
+            session["admin"] = True
+            return redirect("/")
+
+        return "Špatné heslo"
+
+    return """
+    <h2>Administrace</h2>
+    <form method="post">
+        <input type="password" name="password" placeholder="Heslo">
+        <button>Přihlásit</button>
+    </form>
+    """
+    
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect("/login")
 
 if __name__ == "__main__":
     init_db()
