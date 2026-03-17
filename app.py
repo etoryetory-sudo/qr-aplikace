@@ -20,7 +20,7 @@ QR_DIR = BASE_DIR / "qr_codes"
 UPLOADS_DIR.mkdir(exist_ok=True)
 QR_DIR.mkdir(exist_ok=True)
 
-app = Flask(__name__)
+
 
 
 def get_db():
@@ -50,7 +50,6 @@ def init_db():
 
 @app.route("/")
 def home():
-
     if not session.get("admin"):
         return redirect("/login")
 
