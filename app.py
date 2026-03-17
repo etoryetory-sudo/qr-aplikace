@@ -141,9 +141,9 @@ def qr_image(filename):
     if not path.exists():
         abort(404)
     return send_file(path)
-@app.route("/login", methods=["GET","POST"])
+    
+@app.route("/login", methods=["GET", "POST"])
 def login():
-
     if request.method == "POST":
         password = request.form.get("password")
 
@@ -157,10 +157,10 @@ def login():
     <h2>Administrace</h2>
     <form method="post">
         <input type="password" name="password" placeholder="Heslo">
-        <button>Přihlásit</button>
+        <button type="submit">Přihlásit</button>
     </form>
     """
-    
+
 @app.route("/logout")
 def logout():
     session.clear()
