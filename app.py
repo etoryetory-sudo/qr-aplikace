@@ -5,7 +5,7 @@ from flask import Flask, request, render_template, send_file, abort, redirect, s
 import qrcode
 ADMIN_PASSWORD = "Dominika1"
 app = Flask(__name__)
-app.secret_key = "tajne-admin-heslo"
+app.secret_key = "Dominika1-super-secret"
 BASE_DIR = Path(__file__).resolve().parent
 DB_PATH = BASE_DIR / "app.db"
 UPLOADS_DIR = BASE_DIR / "uploads"
@@ -141,7 +141,7 @@ def qr_image(filename):
     if not path.exists():
         abort(404)
     return send_file(path)
-    
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
